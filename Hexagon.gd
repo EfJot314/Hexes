@@ -19,7 +19,6 @@ func _ready():
 	createHex()
 
 func _draw():
-	#createHex()
 	pass
 	
 
@@ -41,26 +40,46 @@ func createHex():
 		var xi = X + R*cos(i*PI/3)
 		var yi = Y + R*sin(i*PI/3)
 		vertices.append(Vector2(xi, yi))
-	var coll = CollisionPolygon2D.new()
 	polyg.polygon += vertices
-	coll.polygon += vertices
 	self.add_child(polyg)
+
 
 func _input(event):
 	if event is InputEventMouseMotion:
 		mouse_over = check_if_mouse_in_polygon(event.position)
 	if event.is_action_pressed("selectHex"):
 		if mouse_over:
-			selected = true
+			selected = !selected
 	if event.is_action_pressed("unselectHex"):
 		if mouse_over:
 			selected = false
 			
-	
-	
+
 func check_if_mouse_in_polygon(mousePosition):
 	if Geometry.is_point_in_polygon(mousePosition, polyg.get_polygon()):
 		return true
 	return false
+	
+	
+func get_state():
+	return selected
+	
+func get_number():
+	return 0
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
