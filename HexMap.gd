@@ -7,6 +7,9 @@ var hex = preload("res://Hexagon.gd")
 
 var mapTab = []
 
+var first_selected = -1
+var second_selected = -1
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -65,7 +68,58 @@ func create_map():
 			mapTab.append(instance)
 			self.add_child(instance)
 
+func select_hex(id):
+	if first_selected < 0:
+		first_selected = id
+		return true
+	else:
+		if second_selected < 0:
+			var first_hex = get_hex_by_id(first_selected)
+			var second_hex = get_hex_by_id(id)
+			if are_neighbors(first_hex, second_hex):
+				second_selected = id
+				return true
+	return false
+			
+
+func are_neighbors(hex1, hex2):
+	var neig1 = hex1.get_neighbors()
+	var id2 = hex2.get_id()
+	for id in neig1:
+		if id == id2:
+			return true
+	return false
+
+func get_hex_by_id(id):
+	for hex in mapTab:
+		if hex.get_id() == id:
+			return hex
+	return null
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

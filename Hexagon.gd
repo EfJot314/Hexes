@@ -47,6 +47,9 @@ func createHex():
 		vertices.append(Vector2(xi, yi))
 	polyg.polygon += vertices
 	self.add_child(polyg)
+	
+func select_this_hex():
+	return true
 
 
 func _input(event):
@@ -55,6 +58,8 @@ func _input(event):
 	if event.is_action_pressed("selectHex"):
 		if mouse_over:
 			selected = !selected
+			if selected:
+				selected = select_this_hex()
 	if event.is_action_pressed("unselectHex"):
 		if mouse_over:
 			selected = false
@@ -65,9 +70,11 @@ func check_if_mouse_in_polygon(mousePosition):
 		return true
 	return false
 	
-	
-func get_state():
-	return selected
+func get_neighbors():
+	return neighbors
+
+func get_id():
+	return id
 	
 func get_number():
 	return 0
