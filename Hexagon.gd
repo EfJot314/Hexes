@@ -1,5 +1,7 @@
 extends Area2D
 
+var id = 0
+var neighbors = []
 
 export var X = 0
 export var Y = 0
@@ -31,7 +33,10 @@ func _process(delta):
 	else:
 		polyg.color = Color.gray
 	
-	
+func set_initial_data(ids, neighborss):
+	id = ids
+	for ne in neighborss:
+		neighbors.append(ne)
 
 func createHex():
 	var R = r-dr
