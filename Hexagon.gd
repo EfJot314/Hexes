@@ -8,6 +8,7 @@ export var r = 50
 var dr = 3
 
 var mouse_over = false
+var selected = false
 
 var polyg = Polygon2D.new()
 
@@ -23,8 +24,11 @@ func _draw():
 	
 
 func _process(delta):
+	#miana koloru w zaleznosci od stanu
 	if mouse_over:
 		polyg.color = Color.red
+	elif selected:
+		polyg.color = Color.blue
 	else:
 		polyg.color = Color.gray
 	
@@ -45,6 +49,13 @@ func createHex():
 func _input(event):
 	if event is InputEventMouseMotion:
 		mouse_over = check_if_mouse_in_polygon(event.position)
+	if event.is_action_pressed("selectHex"):
+		if mouse_over:
+			selected = true
+	if event.is_action_pressed("unselectHex"):
+		if mouse_over:
+			selected = false
+			
 	
 	
 func check_if_mouse_in_polygon(mousePosition):
