@@ -2,6 +2,7 @@ extends Area2D
 
 var id = 0
 var neighbors = []
+var map = null
 
 export var X = 0
 export var Y = 0
@@ -33,8 +34,9 @@ func _process(delta):
 	else:
 		polyg.color = Color.gray
 	
-func set_initial_data(ids, neighborss):
+func set_initial_data(ids, maps, neighborss):
 	id = ids
+	map = maps
 	for ne in neighborss:
 		neighbors.append(ne)
 
@@ -49,7 +51,7 @@ func createHex():
 	self.add_child(polyg)
 	
 func select_this_hex():
-	return true
+	return map.select_hex(id)
 
 
 func _input(event):
@@ -60,8 +62,11 @@ func _input(event):
 			selected = !selected
 			if selected:
 				selected = select_this_hex()
+			else:
+				map.unselect_hex(id)
 	if event.is_action_pressed("unselectHex"):
 		if mouse_over:
+			map.unselect_hex(id)
 			selected = false
 			
 

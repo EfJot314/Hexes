@@ -62,7 +62,7 @@ func create_map():
 						neig.append(id+ny+1)
 				
 			#przekazywanie danych do hexa
-			instance.set_initial_data(id, neig)
+			instance.set_initial_data(id, self,neig)
 			
 			#dodawanie hexa do mapy
 			mapTab.append(instance)
@@ -80,6 +80,13 @@ func select_hex(id):
 				second_selected = id
 				return true
 	return false
+	
+func unselect_hex(id):
+	if first_selected == id:
+		first_selected = second_selected
+		second_selected = -1
+	elif second_selected == id:
+		second_selected = -1
 			
 
 func are_neighbors(hex1, hex2):
