@@ -1,6 +1,7 @@
 extends Area2D
 
 var id = 0
+var value = 0
 var neighbors = []
 var map = null
 
@@ -14,6 +15,7 @@ var mouse_over = false
 var selected = false
 
 var polyg = Polygon2D.new()
+var label = RichTextLabel.new()
 
 
 
@@ -41,6 +43,7 @@ func set_initial_data(ids, maps, neighborss):
 		neighbors.append(ne)
 
 func createHex():
+	#tworzenie ksztaltu szesciokatu
 	var R = r-dr
 	var vertices = PoolVector2Array()
 	for i in range(6):
@@ -49,6 +52,20 @@ func createHex():
 		vertices.append(Vector2(xi, yi))
 	polyg.polygon += vertices
 	self.add_child(polyg)
+	#tworzenie napisu
+	label.bbcode_enabled = true
+	
+	set_label(String(value))
+	polyg.add_child(label)
+	
+	
+func set_label(label_text):
+	label.set_bbcode("[center] "+label_text+" [/center]")
+	label.rect_min_size.x = 2*r
+	label.rect_min_size.y = 2*r*sqrt(3)
+	label.rect_global_position.x = X-r
+	label.rect_global_position.y = Y-5
+	
 	
 func select_this_hex():
 	return map.select_hex(id)
@@ -82,7 +99,7 @@ func get_id():
 	return id
 	
 func get_number():
-	return 0
+	return value
 	
 	
 	
